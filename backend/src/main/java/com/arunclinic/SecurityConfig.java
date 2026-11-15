@@ -24,7 +24,7 @@ import org.springframework.web.cors.*;
 
 @Configuration
 public class SecurityConfig {
-    @Bean SecretKey jwtSecretKey(@Value("\${clinic.jwt.secret}") String secret) {
+    @Bean SecretKey jwtSecretKey(@Value("${clinic.jwt.secret}") String secret) {
         byte[] bytes = secret.getBytes(StandardCharsets.UTF_8);
         if (bytes.length < 32) throw new IllegalStateException("CLINIC_JWT_SECRET must be at least 32 bytes.");
         return new SecretKeySpec(bytes, "HmacSHA256");
@@ -53,7 +53,7 @@ public class SecurityConfig {
             .oauth2ResourceServer(o -> o.jwt(j -> j.jwtAuthenticationConverter(converter)));
         return http.build();
     }
-    @Bean CorsConfigurationSource cors(@Value("\${clinic.frontend-origin}") String origin) {
+    @Bean CorsConfigurationSource cors(@Value("${clinic.frontend-origin}") String origin) {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of(origin));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "OPTIONS"));
