@@ -6,7 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 public class BootstrapAdmin {
     @Bean ApplicationRunner seedAdmin(UserAccountRepository users, PasswordEncoder encoder,
-        @Value("\${clinic.admin.email:}") String email, @Value("\${clinic.admin.password:}") String password) {
+        @Value("${clinic.admin.email:}") String email, @Value("${clinic.admin.password:}") String password) {
         return args -> {
             if (email == null || email.isBlank() || password == null || password.length() < 12) return;
             String normalized = email.trim().toLowerCase();
