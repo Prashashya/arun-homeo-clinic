@@ -3,9 +3,10 @@ import { createRoot } from "react-dom/client";
 import "./styles.css";
 
 const Arrow = () => <span aria-hidden="true">→</span>;
+const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
 
 async function api(path, options = {}, token) {
-  const response = await fetch(path, {
+  const response = await fetch(API_BASE + path, {
     ...options,
     headers: { "Content-Type": "application/json", ...(token ? { Authorization: "Bearer " + token } : {}), ...(options.headers || {}) }
   });
